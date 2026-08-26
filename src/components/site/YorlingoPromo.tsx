@@ -77,7 +77,7 @@ export function YorlingoPromo() {
               className="w-[70%] max-w-xs drop-shadow-2xl"
             />
             <img
-              src={mascots}
+              src={mascots.url}
               alt="Yorlingo mascots waving"
               loading="lazy"
               width={1008}

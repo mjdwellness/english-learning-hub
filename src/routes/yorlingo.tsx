@@ -66,7 +66,7 @@ function YorlingoPage() {
               className="w-[60%] max-w-xs drop-shadow-2xl"
             />
             <img
-              src={mascots}
+              src={mascots.url}
               alt="Yorlingo mascots waving"
               loading="lazy"
               width={1008}
@@ -113,7 +113,7 @@ function YorlingoPage() {
             </div>
           </div>
           <img
-            src={mascots}
+            src={mascots.url}
             alt="Yorlingo mascots celebrating"
             loading="lazy"
             width={1008}
