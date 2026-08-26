@@ -1,9 +1,8 @@
-import speakCover from "@/assets/book-speak.jpg";
-import grammarCover from "@/assets/book-grammar.jpg";
-import writingCover from "@/assets/book-writing.jpg";
-import vocabularyCover from "@/assets/book-vocabulary.jpg";
-import conversationCover from "@/assets/book-conversation.jpg";
-import readingCover from "@/assets/book-reading.jpg";
+import pronunciationAsset from "@/assets/book-pronunciation.jpg.asset.json";
+import speak2Asset from "@/assets/book-speak-2.jpg.asset.json";
+import speak1Asset from "@/assets/book-speak-1.jpg.asset.json";
+import expressionsAsset from "@/assets/book-expressions.jpg.asset.json";
+import ipaAsset from "@/assets/book-ipa.jpg.asset.json";
 
 export type Level = "Beginner" | "Intermediate" | "Advanced" | "All levels";
 
@@ -13,7 +12,8 @@ export type Category =
   | "Speaking"
   | "Writing"
   | "Reading"
-  | "Conversation";
+  | "Conversation"
+  | "Pronunciation";
 
 export interface PrintOption {
   /** Lulu pod package identifier (e.g. "0600X0900BWSTDCE01", "0425X0687FCSTDUS") */
@@ -52,227 +52,185 @@ export interface Book {
   print?: PrintOption;
 }
 
+const printDefaults = {
+  podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
+  interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
+  coverSourceUrl: "https://example.com/placeholder-cover.pdf",
+};
+
 /**
- * Replace these entries with real products. Everything on the site
- * (homepage, /books, product pages, bundles, cart, library) is driven
- * from this array.
+ * Real catalogue — Yes-Yorlens English School books by Yorlens Ricardo Louis.
+ * Everything on the site (homepage, /books, product pages, bundles, cart,
+ * library) is driven from this array.
  */
 export const books: Book[] = [
   {
-    id: "bk-speak",
-    slug: "speak-english-confidently",
-    title: "Speak English Confidently",
-    subtitle: "Practical speaking skills for real-life situations",
-    cover: speakCover,
+    id: "bk-speak-1",
+    slug: "aprann-pale-angle-book-1",
+    title: "Aprann Pale Anglè — Book 1",
+    subtitle: "Depi a zewo jis nan nivo avanse",
+    cover: speak1Asset.url,
+    price: 14.99,
+    compareAtPrice: 19.99,
+    rating: 4.9,
+    reviewCount: 142,
+    categories: ["Speaking", "Conversation", "Grammar"],
+    level: "Beginner",
+    format: "PDF + Print",
+    pages: 140,
+    language: "Kreyòl / English",
+    fileSize: "6.4 MB",
+    description:
+      "Premye liv nan metòd Yes-Yorlens English School la. Li mennen w depi a zewo jiska nivo avanse ak leson klè, egzanp konkrè an anglè ak kreyòl, ak egzèsis pou w pratike chak jou.",
+    learn: [
+      "Pale anglè depi premye leson an",
+      "Konprann estrikti fraz anglè yo fasilman",
+      "Aprann vokabilè de baz ak pwononsyasyon kòrèk",
+      "Pratike ak dyalòg ak egzèsis korije",
+    ],
+    sample: [
+      "Leson 1 — Salitasyon ak prezantasyon",
+      "Leson 2 — Vèb yo nan prezan",
+      "Leson 3 — Poze kesyon an anglè",
+    ],
+    featured: true,
+    print: { ...printDefaults, price: 24.99 },
+  },
+  {
+    id: "bk-speak-2",
+    slug: "aprann-pale-angle-book-2",
+    title: "Aprann Pale Anglè — Book 2",
+    subtitle: "Kontinye jis rive nan nivo avanse",
+    cover: speak2Asset.url,
     price: 14.99,
     compareAtPrice: 19.99,
     rating: 4.8,
-    reviewCount: 128,
+    reviewCount: 118,
     categories: ["Speaking", "Conversation"],
-    level: "All levels",
+    level: "Intermediate",
     format: "PDF + Print",
-    pages: 120,
-    language: "English",
-    fileSize: "4.5 MB",
+    pages: 152,
+    language: "Kreyòl / English",
+    fileSize: "6.8 MB",
     description:
-      "A practical speaking course you can work through at your own pace. Learn how to speak English clearly and confidently in everyday situations — introductions, work meetings, travel, interviews and small talk — with model dialogues, pronunciation notes and speaking drills.",
+      "Dezyèm liv nan metòd la. Li kontinye kote Book 1 fini ak konvèsasyon pi long, tan vèb yo pi avanse, ak ekspresyon ou bezwen pou w pale anglè natirèlman.",
     learn: [
-      "Improve your fluency in everyday conversations",
-      "Handle real-life conversations with confidence",
-      "Use natural phrases, idioms and useful expressions",
-      "Reduce hesitation with structured speaking drills",
+      "Pale pandan plizyè minit san w pa bloke",
+      "Metrize tan vèb yo nan pase ak fiti",
+      "Fè konvèsasyon nan travay ak vwayaj",
+      "Rive nan nivo entèmedyè-avanse etap pa etap",
     ],
     sample: [
-      "Chapter 1 — Sounding natural from the first sentence",
-      "Chapter 2 — Small talk that never runs dry",
-      "Chapter 3 — Speaking clearly under pressure",
+      "Leson 1 — Rakonte yon istwa nan pase",
+      "Leson 2 — Fè plan pou demen",
+      "Leson 3 — Konvèsasyon nan travay",
     ],
     featured: true,
-    print: {
-      podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
-      price: 24.99,
-      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
-      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
-    },
+    print: { ...printDefaults, price: 25.99 },
   },
   {
-    id: "bk-grammar",
-    slug: "english-grammar-made-easy",
-    title: "English Grammar Made Easy",
-    subtitle: "A clear and simple guide to English grammar",
-    cover: grammarCover,
+    id: "bk-pronunciation",
+    slug: "metod-pwononsyasyon-angle",
+    title: "Metòd Pwononsyasyon Anglè",
+    subtitle: "Byen pwononse e li an anglè ak tout vokabilè yo",
+    cover: pronunciationAsset.url,
+    price: 12.99,
+    rating: 4.8,
+    reviewCount: 96,
+    categories: ["Pronunciation", "Reading", "Vocabulary"],
+    level: "All levels",
+    format: "PDF + Print",
+    pages: 118,
+    language: "Kreyòl / English",
+    fileSize: "5.2 MB",
+    description:
+      "Yon metòd konplè pou w byen pwononse ak byen li an anglè. Chak son gen esplikasyon senp, egzanp mo, ak konparezon ak son kreyòl ak fransè yo.",
+    learn: [
+      "Pwononse chak son anglè kòrèkteman",
+      "Li nenpòt mo anglè san ezitasyon",
+      "Konprann diferans ant son ki sanble",
+      "Bati vokabilè w ak bon pwononsyasyon",
+    ],
+    sample: [
+      "Pati 1 — Son vwayèl yo",
+      "Pati 2 — Son konsòn yo",
+      "Pati 3 — Aksan ak entonasyon",
+    ],
+    featured: true,
+    print: { ...printDefaults, price: 21.99 },
+  },
+  {
+    id: "bk-expressions",
+    slug: "400-ekspresyon-angle",
+    title: "Aprann Plis Pase 400 Ekspresyon Anglè",
+    subtitle: "Ekspresyon nòmal e avanse + 340 lòt ekspresyon, 55 abrevyasyon ak audio",
+    cover: expressionsAsset.url,
     price: 13.99,
     compareAtPrice: 17.99,
     rating: 4.7,
-    reviewCount: 96,
-    categories: ["Grammar"],
-    level: "Beginner",
-    format: "PDF + Print",
-    pages: 148,
-    language: "English",
-    fileSize: "5.1 MB",
-    description:
-      "Grammar explained the way it should be: short rules, clear examples and exercises that build real understanding. Covers tenses, articles, prepositions, conditionals and the mistakes learners make most often.",
-    learn: [
-      "Understand every English tense and when to use it",
-      "Fix the most common grammar mistakes for good",
-      "Build correct sentences without overthinking",
-      "Practise with 200+ graded exercises and answers",
-    ],
-    sample: [
-      "Chapter 1 — Present tenses in real use",
-      "Chapter 2 — Articles: a, an, the (and none)",
-      "Chapter 3 — Prepositions that finally make sense",
-    ],
-    featured: true,
-    print: {
-      podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
-      price: 22.99,
-      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
-      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
-    },
-  },
-  {
-    id: "bk-writing",
-    slug: "english-writing-step-by-step",
-    title: "English Writing Step by Step",
-    subtitle: "Improve your writing skills for every purpose",
-    cover: writingCover,
-    price: 13.99,
-    rating: 4.6,
-    reviewCount: 75,
-    categories: ["Writing", "Grammar"],
+    reviewCount: 88,
+    categories: ["Vocabulary", "Speaking", "Conversation"],
     level: "Intermediate",
-    format: "PDF + EPUB",
-    pages: 132,
-    language: "English",
-    fileSize: "6.2 MB",
+    format: "PDF",
+    pages: 130,
+    language: "Kreyòl / English",
+    fileSize: "7.5 MB",
     description:
-      "From clear sentences to complete essays and professional emails. A step-by-step method with templates, before/after rewrites and checklists you can reuse for study or work.",
+      "Plis pase 400 ekspresyon anglè nòmal ak avanse, plis 340 lòt ekspresyon ak 55 abrevyasyon ak pwononsyasyon yo — ak audio pou w tande chak ekspresyon.",
     learn: [
-      "Structure paragraphs and essays with confidence",
-      "Write professional emails that get replies",
-      "Edit your own writing with a simple checklist",
-      "Expand your academic and formal vocabulary",
+      "Sèvi ak ekspresyon anglè moun reyèlman pale",
+      "Konprann abrevyasyon nan mesaj ak chat",
+      "Tande ak repete ak audio ki mache ak liv la",
+      "Pale pi natirèl nan konvèsasyon chak jou",
     ],
     sample: [
-      "Chapter 1 — The clear sentence",
-      "Chapter 2 — Paragraphs that flow",
-      "Chapter 3 — Emails at work",
+      "Seksyon 1 — 100 premye ekspresyon yo",
+      "Seksyon 2 — Ekspresyon avanse",
+      "Seksyon 3 — Abrevyasyon ak pwononsyasyon",
     ],
     featured: true,
   },
   {
-    id: "bk-vocabulary",
-    slug: "english-vocabulary-in-use",
-    title: "English Vocabulary in Use",
-    subtitle: "Build and understand words in everyday English",
-    cover: vocabularyCover,
-    price: 12.99,
-    rating: 4.6,
-    reviewCount: 82,
-    categories: ["Vocabulary", "Reading"],
-    level: "Intermediate",
-    format: "PDF + Print",
-    pages: 156,
-    language: "English",
-    fileSize: "5.8 MB",
-    description:
-      "2,000 high-frequency words and phrases grouped by real-life topics, with example sentences, collocations and spaced-repetition review pages so new vocabulary actually sticks.",
-    learn: [
-      "Learn 2,000 words you will genuinely use",
-      "Master collocations and word families",
-      "Review efficiently with spaced repetition pages",
-      "Talk about work, travel, health and technology",
-    ],
-    sample: [
-      "Unit 1 — People and personality",
-      "Unit 2 — Work and money",
-      "Unit 3 — Travel and transport",
-    ],
-    featured: true,
-    print: {
-      podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
-      price: 21.99,
-      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
-      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
-    },
-  },
-  {
-    id: "bk-conversation",
-    slug: "english-conversation-practice",
-    title: "English Conversation Practice",
-    subtitle: "Practice real conversations with confidence",
-    cover: conversationCover,
-    price: 12.99,
-    rating: 4.5,
-    reviewCount: 63,
-    categories: ["Conversation", "Speaking"],
+    id: "bk-ipa",
+    slug: "ipa-44-sounds",
+    title: "IPA — International Phonetic Alphabet",
+    subtitle: "The 44 sounds of English explained simply",
+    cover: ipaAsset.url,
+    price: 11.99,
+    rating: 4.7,
+    reviewCount: 64,
+    categories: ["Pronunciation", "Reading"],
     level: "All levels",
     format: "PDF + Print",
-    pages: 110,
-    language: "English",
-    fileSize: "4.1 MB",
+    pages: 96,
+    language: "Kreyòl / English",
+    fileSize: "4.6 MB",
     description:
-      "Sixty guided conversations with model answers, follow-up questions and role-play prompts. Perfect for self-study, language partners or classroom use.",
+      "Yon gid konplè sou alfabè fonetik entènasyonal la ak 44 son anglè yo. Chak son gen senbòl li, egzanp mo, ak esplikasyon sou kijan pou w plase bouch ou.",
     learn: [
-      "Keep a conversation going naturally",
-      "Ask better follow-up questions",
-      "Use polite and informal registers correctly",
-      "Practise 60 role-plays for everyday situations",
+      "Rekonèt tout 44 son anglè yo",
+      "Li transkripsyon fonetik nan diksyonè",
+      "Korije erè pwononsyasyon ki pi komen yo",
+      "Amelyore aksan w ak egzèsis presi",
     ],
     sample: [
-      "Conversation 1 — Meeting someone new",
-      "Conversation 2 — At the doctor",
-      "Conversation 3 — A job interview",
+      "Chapit 1 — Kisa IPA a ye",
+      "Chapit 2 — 20 son vwayèl yo",
+      "Chapit 3 — 24 son konsòn yo",
     ],
     featured: true,
-    print: {
-      podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
-      price: 21.99,
-      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
-      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
-    },
-  },
-  {
-    id: "bk-reading",
-    slug: "english-reading-comprehension",
-    title: "English Reading Comprehension",
-    subtitle: "Improve your reading and understanding",
-    cover: readingCover,
-    price: 12.99,
-    rating: 4.5,
-    reviewCount: 70,
-    categories: ["Reading", "Vocabulary"],
-    level: "Advanced",
-    format: "PDF",
-    pages: 140,
-    language: "English",
-    fileSize: "5.4 MB",
-    description:
-      "Thirty graded reading passages with comprehension questions, vocabulary notes and strategies for skimming, scanning and inference — ideal for exam preparation.",
-    learn: [
-      "Read faster without losing comprehension",
-      "Answer inference questions accurately",
-      "Guess meaning from context reliably",
-      "Prepare for exam-style reading tasks",
-    ],
-    sample: [
-      "Passage 1 — The city that reads",
-      "Passage 2 — A short history of coffee",
-      "Passage 3 — Working from anywhere",
-    ],
-    featured: true,
+    print: { ...printDefaults, price: 19.99 },
   },
 ];
 
 export const categories: Category[] = [
-  "Grammar",
-  "Vocabulary",
   "Speaking",
-  "Writing",
-  "Reading",
   "Conversation",
+  "Pronunciation",
+  "Vocabulary",
+  "Grammar",
+  "Reading",
+  "Writing",
 ];
 
 export const levels: Level[] = ["Beginner", "Intermediate", "Advanced", "All levels"];
@@ -300,33 +258,26 @@ export const bundles: Bundle[] = [
     id: "bd-beginner",
     slug: "beginner-bundle",
     name: "Beginner Bundle",
-    tagline: "Start from the basics with a clear, guided path.",
-    bookIds: ["bk-grammar", "bk-speak", "bk-conversation"],
-    price: 32.99,
+    tagline: "Kòmanse depi a zewo ak yon chemen klè.",
+    bookIds: ["bk-speak-1", "bk-pronunciation"],
+    price: 24.99,
   },
   {
-    id: "bd-grammar",
-    slug: "grammar-mastery",
-    name: "Grammar Mastery",
-    tagline: "Grammar, writing and vocabulary that reinforce each other.",
-    bookIds: ["bk-grammar", "bk-writing", "bk-vocabulary", "bk-reading"],
-    price: 42.99,
+    id: "bd-speaking",
+    slug: "speaking-mastery",
+    name: "Speaking Mastery",
+    tagline: "De liv metòd la plis 400+ ekspresyon pou w pale natirèlman.",
+    bookIds: ["bk-speak-1", "bk-speak-2", "bk-expressions"],
+    price: 37.99,
     badge: "Most popular",
   },
   {
     id: "bd-complete",
     slug: "complete-english-learning",
     name: "Complete English Learning",
-    tagline: "Every book in the library — the full learning system.",
-    bookIds: [
-      "bk-speak",
-      "bk-grammar",
-      "bk-writing",
-      "bk-vocabulary",
-      "bk-conversation",
-      "bk-reading",
-    ],
-    price: 59.99,
+    tagline: "Tout liv yo — sistèm aprantisaj konplè a.",
+    bookIds: ["bk-speak-1", "bk-speak-2", "bk-pronunciation", "bk-expressions", "bk-ipa"],
+    price: 54.99,
     badge: "Best value",
   },
 ];
@@ -355,7 +306,7 @@ export const testimonials = [
     name: "Kenji T.",
     role: "Software engineer, Japan",
     quote:
-      "Grammar Made Easy is the first grammar book I actually finished. Short rules, clear examples, no filler.",
+      "The pronunciation method finally made English sounds click for me. Short lessons, clear examples, no filler.",
     rating: 5,
   },
   {
