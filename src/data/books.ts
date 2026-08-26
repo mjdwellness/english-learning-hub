@@ -228,7 +228,7 @@ export const books: Book[] = [
     ],
     featured: true,
     print: {
-      podPackageId: "0600X0900BWSTDCE01",
+      podPackageId: "0600X0900.BW.STD.PB.060UW444.MXX",
       price: 21.99,
       interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
       coverSourceUrl: "https://example.com/placeholder-cover.pdf",
