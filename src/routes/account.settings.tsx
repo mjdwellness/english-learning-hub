@@ -11,7 +11,7 @@ const options = [
 ];
 
 export const Route = createFileRoute("/account/settings")({
-  component: SettingsPage;
+  component: SettingsPage,
 });
 
 function SettingsPage() {
