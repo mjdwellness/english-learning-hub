@@ -481,7 +481,7 @@ function CheckoutPage() {
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Shipping</dt>
               <dd className="font-semibold text-navy">
-                {formatPrice(printQuote ? Number.parseFloat(printQuote.shipping_cost.cost) : 0)}
+                {formatPrice(printQuote ? Number.parseFloat(printQuote.shipping_cost.cost ?? "0") : 0)}
               </dd>
             </div>
             <div className="flex justify-between border-t border-border pt-3">
