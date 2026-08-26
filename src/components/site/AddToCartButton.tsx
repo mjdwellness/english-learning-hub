@@ -1,11 +1,12 @@
 import { Check, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { useStore, type CartItemKind } from "@/lib/store";
+import { useStore, type CartItemKind, type CartItemFormat } from "@/lib/store";
 
 interface AddToCartButtonProps extends Omit<ButtonProps, "onClick"> {
   itemId: string;
   kind?: CartItemKind;
+  format?: CartItemFormat;
   label?: string;
   itemTitle: string;
 }
@@ -13,14 +14,16 @@ interface AddToCartButtonProps extends Omit<ButtonProps, "onClick"> {
 export function AddToCartButton({
   itemId,
   kind = "book",
+  format = "digital",
   label = "Add to Cart",
   itemTitle,
   variant = "navy",
   ...props
 }: AddToCartButtonProps) {
   const { addToCart, cart, isOwned } = useStore();
-  const inCart = cart.some((i) => i.id === itemId);
-  const owned = kind === "book" && isOwned(itemId);
+  const resolvedFormat = kind === "bundle" ? "digital" : format;
+  const inCart = cart.some((i) => i.id === itemId && i.format === resolvedFormat);
+  const owned = kind === "book" && resolvedFormat === "digital" && isOwned(itemId);
 
   if (owned) {
     return (
@@ -34,7 +37,7 @@ export function AddToCartButton({
     <Button
       variant={variant}
       onClick={() => {
-        addToCart(itemId, kind);
+        addToCart(itemId, kind, resolvedFormat);
         toast.success(`${itemTitle} added to cart`);
       }}
       {...props}
