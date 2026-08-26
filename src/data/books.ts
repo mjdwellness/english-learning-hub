@@ -15,19 +15,32 @@ export type Category =
   | "Reading"
   | "Conversation";
 
+export interface PrintOption {
+  /** Lulu pod package identifier (e.g. "0600X0900BWSTDCE01", "0425X0687FCSTDUS") */
+  podPackageId: string;
+  /** Selling price of the printed book */
+  price: number;
+  /** Interior PDF source URL used by Lulu for print-on-demand */
+  interiorSourceUrl: string;
+  /** Book cover source URL used by Lulu */
+  coverSourceUrl: string;
+}
+
 export interface Book {
   id: string;
   slug: string;
   title: string;
   subtitle: string;
   cover: string;
+  /** Digital-download price */
   price: number;
   compareAtPrice?: number;
   rating: number;
   reviewCount: number;
   categories: Category[];
   level: Level;
-  format: "PDF" | "EPUB" | "PDF + EPUB";
+  /** Default format shown in the catalogue */
+  format: "PDF" | "EPUB" | "PDF + EPUB" | "Print" | "PDF + Print";
   pages: number;
   language: string;
   fileSize: string;
@@ -35,6 +48,8 @@ export interface Book {
   learn: string[];
   sample: string[];
   featured?: boolean;
+  /** Print-on-demand configuration. When present, the book can be ordered as a paperback. */
+  print?: PrintOption;
 }
 
 /**
@@ -55,7 +70,7 @@ export const books: Book[] = [
     reviewCount: 128,
     categories: ["Speaking", "Conversation"],
     level: "All levels",
-    format: "PDF",
+    format: "PDF + Print",
     pages: 120,
     language: "English",
     fileSize: "4.5 MB",
@@ -73,6 +88,12 @@ export const books: Book[] = [
       "Chapter 3 — Speaking clearly under pressure",
     ],
     featured: true,
+    print: {
+      podPackageId: "0600X0900BWSTDCE01",
+      price: 24.99,
+      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
+      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
+    },
   },
   {
     id: "bk-grammar",
@@ -86,7 +107,7 @@ export const books: Book[] = [
     reviewCount: 96,
     categories: ["Grammar"],
     level: "Beginner",
-    format: "PDF",
+    format: "PDF + Print",
     pages: 148,
     language: "English",
     fileSize: "5.1 MB",
@@ -104,6 +125,12 @@ export const books: Book[] = [
       "Chapter 3 — Prepositions that finally make sense",
     ],
     featured: true,
+    print: {
+      podPackageId: "0600X0900BWSTDCE01",
+      price: 22.99,
+      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
+      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
+    },
   },
   {
     id: "bk-writing",
@@ -146,7 +173,7 @@ export const books: Book[] = [
     reviewCount: 82,
     categories: ["Vocabulary", "Reading"],
     level: "Intermediate",
-    format: "PDF",
+    format: "PDF + Print",
     pages: 156,
     language: "English",
     fileSize: "5.8 MB",
@@ -164,6 +191,12 @@ export const books: Book[] = [
       "Unit 3 — Travel and transport",
     ],
     featured: true,
+    print: {
+      podPackageId: "0600X0900BWSTDCE01",
+      price: 21.99,
+      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
+      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
+    },
   },
   {
     id: "bk-conversation",
@@ -176,7 +209,7 @@ export const books: Book[] = [
     reviewCount: 63,
     categories: ["Conversation", "Speaking"],
     level: "All levels",
-    format: "PDF",
+    format: "PDF + Print",
     pages: 110,
     language: "English",
     fileSize: "4.1 MB",
@@ -194,6 +227,12 @@ export const books: Book[] = [
       "Conversation 3 — A job interview",
     ],
     featured: true,
+    print: {
+      podPackageId: "0600X0900BWSTDCE01",
+      price: 21.99,
+      interiorSourceUrl: "https://example.com/placeholder-interior.pdf",
+      coverSourceUrl: "https://example.com/placeholder-cover.pdf",
+    },
   },
   {
     id: "bk-reading",

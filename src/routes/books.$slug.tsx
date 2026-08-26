@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { BookOpen, Check, FileText, Globe, HardDrive, Heart, Layers, Zap } from "lucide-react";
+import { BookOpen, Check, FileText, Globe, HardDrive, Heart, Layers, Zap, Truck } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AddToCartButton } from "@/components/site/AddToCartButton";
@@ -9,7 +10,7 @@ import { Price } from "@/components/site/Price";
 import { Rating } from "@/components/site/Rating";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { books, getBookBySlug, testimonials } from "@/data/books";
-import { formatPrice, useStore } from "@/lib/store";
+import { formatPrice, useStore, type CartItemFormat } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/books/$slug")({
@@ -41,17 +42,21 @@ function BookDetails() {
   const { book } = Route.useLoaderData();
   const { addToCart, toggleWishlist, isInWishlist } = useStore();
   const navigate = useNavigate();
+  const [selectedFormat, setSelectedFormat] = useState<CartItemFormat>("digital");
   const related = books.filter((b) => b.id !== book.id).slice(0, 4);
   const alsoBought = books.filter((b) => b.id !== book.id).slice(0, 2);
   const bundleTotal = [book, ...alsoBought].reduce((sum, b) => sum + b.price, 0);
 
   const specs = [
-    { icon: FileText, label: "Format", value: book.format },
+    { icon: FileText, label: "Format", value: selectedFormat === "print" && book.print ? "Paperback" : book.format },
     { icon: Layers, label: "Pages", value: String(book.pages) },
     { icon: Globe, label: "Language", value: book.language },
-    { icon: HardDrive, label: "File Size", value: book.fileSize },
+    { icon: HardDrive, label: "File Size", value: selectedFormat === "print" ? "—" : book.fileSize },
     { icon: BookOpen, label: "Level", value: book.level },
   ];
+
+  const displayPrice = selectedFormat === "print" && book.print ? book.print.price : book.price;
+  const displayCompareAt = selectedFormat === "print" ? undefined : book.compareAtPrice;
 
   return (
     <>
@@ -94,12 +99,42 @@ function BookDetails() {
               </span>
             </div>
 
-            <Price value={book.price} compareAt={book.compareAtPrice} size="lg" className="mt-6" />
+            <Price value={displayPrice} compareAt={displayCompareAt} size="lg" className="mt-6" />
+
+            {book.print && (
+              <div className="mt-4 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedFormat("digital")}
+                  className={cn(
+                    "flex flex-1 items-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
+                    selectedFormat === "digital"
+                      ? "border-brand-green bg-brand-green/10 text-navy"
+                      : "border-border bg-card text-muted-foreground hover:text-navy",
+                  )}
+                >
+                  <Zap className="size-4" /> Digital PDF — {formatPrice(book.price)}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedFormat("print")}
+                  className={cn(
+                    "flex flex-1 items-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
+                    selectedFormat === "print"
+                      ? "border-brand-green bg-brand-green/10 text-navy"
+                      : "border-border bg-card text-muted-foreground hover:text-navy",
+                  )}
+                >
+                  <Truck className="size-4" /> Print — {formatPrice(book.print.price)}
+                </button>
+              </div>
+            )}
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <AddToCartButton
                 itemId={book.id}
                 itemTitle={book.title}
+                format={selectedFormat}
                 size="xl"
                 className="flex-1"
               />
@@ -108,7 +143,7 @@ function BookDetails() {
                 size="xl"
                 className="flex-1"
                 onClick={() => {
-                  addToCart(book.id);
+                  addToCart(book.id, "book", selectedFormat);
                   navigate({ to: "/checkout" });
                 }}
               >
