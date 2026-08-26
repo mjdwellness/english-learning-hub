@@ -88,9 +88,9 @@ export function titleOf(item: CartItem) {
 export function coverOf(item: CartItem) {
   if (item.kind === "bundle") {
     const bundle = bundles.find((b) => b.id === item.id);
-    return bundle ? bundleBooks(bundle)[0]?.cover : books[0].cover;
+    return (bundle ? bundleBooks(bundle)[0]?.cover : undefined) ?? books[0]!.cover;
   }
-  return getBookById(item.id)?.cover ?? books[0].cover;
+  return getBookById(item.id)?.cover ?? books[0]!.cover;
 }
 
 export function StoreProvider({ children }: { children: ReactNode }) {
