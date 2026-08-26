@@ -122,19 +122,41 @@ export interface LuluPrintJob {
 
 export interface LuluCostCalculation {
   line_item_costs: Array<{
-    line_item_id: string;
-    cost: string;
-    cost_excl_discount: string;
+    cost_excl_discounts?: string;
+    total_tax?: string;
+    tax_rate?: string;
+    quantity?: number;
+    total_cost_excl_tax?: string;
+    total_cost_excl_discounts?: string;
+    total_cost_incl_tax?: string;
+    unit_tier_cost?: string;
+    cost?: string;
+    cost_excl_discount?: string;
   }>;
   shipping_cost: {
-    cost_excl_discount: string;
-    cost: string;
-    level_name: string;
-    level: string;
+    cost?: string;
+    cost_excl_discount?: string;
+    level_name?: string;
+    level?: string;
+    total_cost_excl_tax?: string;
+    total_cost_incl_tax?: string;
+    total_tax?: string;
+    tax_rate?: string;
   };
-  total_cost_excl_discount: string;
-  total_discount: string;
+  fulfillment_cost?: {
+    total_cost_excl_tax?: string;
+    total_cost_incl_tax?: string;
+    total_tax?: string;
+    tax_rate?: string;
+  };
+  total_tax?: string;
+  total_cost_excl_tax?: string;
+  total_cost_incl_tax?: string;
+  total_cost_excl_discount?: string;
+  total_discount?: string;
+  total_discount_amount?: string;
   total_cost: string;
+  currency?: string;
 }
 
 export interface LuluShippingOption {
