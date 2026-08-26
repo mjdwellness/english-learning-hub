@@ -10,7 +10,7 @@ interface BooksSearch {
 
 export const Route = createFileRoute("/books/")({
   validateSearch: (search: Record<string, unknown>): BooksSearch => ({
-    q: typeof search.q === "string" && search.q.length > 0 ? search.q : undefined,
+    q: typeof search['q'] === "string" && search['q'].length > 0 ? search['q'] : undefined,
   }),
   head: () => ({
     meta: [
