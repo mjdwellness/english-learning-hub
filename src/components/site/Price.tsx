@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface PriceProps {
   value: number;
-  compareAt?: number;
+  compareAt?: number | undefined;
   size?: "sm" | "md" | "lg";
   className?: string;
 }
