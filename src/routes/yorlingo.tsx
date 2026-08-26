@@ -5,7 +5,7 @@ import {
   QrCodePlaceholder,
 } from "@/components/site/AppDownloadButtons";
 import { YorlingoWordmark, yorlingoFeatures } from "@/components/site/YorlingoPromo";
-import mascots from "@/assets/yorlingo-mascots.png";
+import mascots from "@/assets/yorlingo-mascots.png.asset.json";
 import phoneMockup from "@/assets/yorlingo-phone.png";
 
 export const Route = createFileRoute("/yorlingo")({

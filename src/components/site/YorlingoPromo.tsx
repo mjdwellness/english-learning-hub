@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Award, Coins, Flame, Gamepad2, LineChart, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import phoneMockup from "@/assets/yorlingo-phone.png";
-import mascots from "@/assets/yorlingo-mascots.png";
+import mascots from "@/assets/yorlingo-mascots.png.asset.json";
 import { AppDownloadButtons, QrCodePlaceholder } from "./AppDownloadButtons";
 
 export const yorlingoFeatures = [
