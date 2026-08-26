@@ -10,17 +10,17 @@ export function Footer() {
             <BookOpen className="size-5" />
           </span>
           <span className="font-display text-lg leading-tight font-extrabold text-navy">
-            English Books
+            Yorlens English School
           </span>
         </Link>
         <p className="max-w-md text-sm text-muted-foreground">
           Practical English-learning books and the Yorlingo app.
         </p>
-        <a href="mailto:hello@englishbooks.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-navy">
-          <Mail className="size-4" /> hello@englishbooks.com
+        <a href="mailto:hello@yorlens.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-navy">
+          <Mail className="size-4" /> hello@yorlens.com
         </a>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} English Books. All rights reserved.
+          © {new Date().getFullYear()} Yorlens English School. All rights reserved.
         </p>
       </div>
     </footer>

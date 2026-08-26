@@ -9,9 +9,9 @@ import { coverOf, formatLabel, formatPrice, priceOf, titleOf, useStore } from "@
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Cart — English Books" },
+      { title: "Your Cart — Yorlens English School" },
       { name: "description", content: "Review your English-learning books before checkout." },
-      { property: "og:title", content: "Your Cart — English Books" },
+      { property: "og:title", content: "Your Cart — Yorlens English School" },
       { property: "og:description", content: "Review your selected books and bundles." },
     ],
   }),

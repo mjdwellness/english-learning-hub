@@ -28,7 +28,7 @@ const resources = [
 export const Route = createFileRoute("/resources")({
   head: () => ({
     meta: [
-      { title: "Free English Learning Resources — English Books" },
+      { title: "Free English Learning Resources — Yorlens English School" },
       {
         name: "description",
         content:

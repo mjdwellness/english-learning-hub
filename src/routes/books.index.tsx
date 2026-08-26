@@ -14,13 +14,13 @@ export const Route = createFileRoute("/books/")({
   }),
   head: () => ({
     meta: [
-      { title: "All English-Learning Books — English Books" },
+      { title: "All English-Learning Books — Yorlens English School" },
       {
         name: "description",
         content:
           "Browse every English-learning book: grammar, vocabulary, speaking, writing, reading and conversation. Filter by level and price.",
       },
-      { property: "og:title", content: "All English-Learning Books — English Books" },
+      { property: "og:title", content: "All English-Learning Books — Yorlens English School" },
       {
         property: "og:description",
         content: "Filter our full catalogue by category, level and price. Instant digital download.",

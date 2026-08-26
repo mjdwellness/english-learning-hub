@@ -22,15 +22,15 @@ export const Route = createFileRoute("/books/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Book not found — English Books" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Book not found — Yorlens English School" }, { name: "robots", content: "noindex" }],
       };
     }
     const { book } = loaderData;
     return {
       meta: [
-        { title: `${book.title} — English Books` },
+        { title: `${book.title} — Yorlens English School` },
         { name: "description", content: book.subtitle },
-        { property: "og:title", content: `${book.title} — English Books` },
+        { property: "og:title", content: `${book.title} — Yorlens English School` },
         { property: "og:description", content: book.subtitle },
       ],
     };

@@ -9,9 +9,9 @@ export function Logo({ className }: { className?: string }) {
         <BookOpen className="size-5" />
       </span>
       <span className="min-w-0 font-display text-[1.05rem] leading-[1.05] font-extrabold text-navy">
-        English
+        Yorlens
         <br />
-        Books
+        English School
       </span>
     </Link>
   );
