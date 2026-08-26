@@ -17,7 +17,7 @@ export function AppDownloadButtons({
       )}
     >
       <a
-        href="https://play.google.com/store"
+        href="https://play.google.com/store/apps/details?id=com.yorlingo.com&hl=en_US"
         target="_blank"
         rel="noreferrer"
         className="flex h-13 items-center gap-3 rounded-xl bg-foreground px-5 text-background transition-transform hover:-translate-y-0.5"
@@ -29,7 +29,7 @@ export function AppDownloadButtons({
         </span>
       </a>
       <a
-        href="https://apps.apple.com"
+        href="https://apps.apple.com/us/app/yorlingo/id6788203388"
         target="_blank"
         rel="noreferrer"
         className="flex h-13 items-center gap-3 rounded-xl bg-foreground px-5 text-background transition-transform hover:-translate-y-0.5"
