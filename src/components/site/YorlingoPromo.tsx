@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Award, Coins, Flame, Gamepad2, LineChart, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import phoneMockup from "@/assets/yorlingo-phone.png";
-import mascots from "@/assets/yorlingo-mascots.png";
+import mascots from "@/assets/yorlingo-mascots.png.asset.json";
 import { AppDownloadButtons, QrCodePlaceholder } from "./AppDownloadButtons";
 
 export const yorlingoFeatures = [
@@ -77,7 +77,7 @@ export function YorlingoPromo() {
               className="w-[70%] max-w-xs drop-shadow-2xl"
             />
             <img
-              src={mascots}
+              src={mascots.url}
               alt="Yorlingo mascots waving"
               loading="lazy"
               width={1008}
