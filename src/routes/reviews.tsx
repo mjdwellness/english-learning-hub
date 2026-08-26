@@ -7,7 +7,7 @@ import { Rating } from "@/components/site/Rating";
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — What Learners Say | English Books" },
+      { title: "Reviews — What Learners Say | Yorlens English School" },
       {
         name: "description",
         content:

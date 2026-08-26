@@ -9,13 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — English Books" },
+      { title: "Contact — Yorlens English School" },
       {
         name: "description",
         content: "Questions about a book, a bundle, or the Yorlingo app? Send us a message.",
       },
-      { property: "og:title", content: "Contact — English Books" },
-      { property: "og:description", content: "Get in touch with the English Books team." },
+      { property: "og:title", content: "Contact — Yorlens English School" },
+      { property: "og:description", content: "Get in touch with the Yorlens English School team." },
     ],
   }),
   component: ContactPage,
@@ -35,8 +35,8 @@ function ContactPage() {
               <span className="grid size-10 place-items-center rounded-xl bg-sky text-navy">
                 <Mail className="size-5" />
               </span>
-              <a href="mailto:hello@englishbooks.com" className="font-semibold text-navy">
-                hello@englishbooks.com
+              <a href="mailto:hello@yorlens.com" className="font-semibold text-navy">
+                hello@yorlens.com
               </a>
             </li>
             <li className="flex items-center gap-3">

@@ -25,12 +25,12 @@ const links = [
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
-      { title: "My Account — English Books" },
+      { title: "My Account — Yorlens English School" },
       {
         name: "description",
         content: "Manage your library, orders, downloads, wishlist and account details.",
       },
-      { property: "og:title", content: "My Account — English Books" },
+      { property: "og:title", content: "My Account — Yorlens English School" },
       { property: "og:description", content: "Your library, orders and account settings." },
     ],
   }),

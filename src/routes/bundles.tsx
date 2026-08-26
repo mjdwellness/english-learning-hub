@@ -5,7 +5,7 @@ import { bundles } from "@/data/books";
 export const Route = createFileRoute("/bundles")({
   head: () => ({
     meta: [
-      { title: "Book Bundles — Save on English-Learning Sets | English Books" },
+      { title: "Book Bundles — Save on English-Learning Sets | Yorlens English School" },
       {
         name: "description",
         content:

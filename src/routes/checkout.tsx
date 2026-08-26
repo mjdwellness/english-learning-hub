@@ -18,9 +18,9 @@ import {
 export const Route = createFileRoute("/checkout")({
   head: () => ({
     meta: [
-      { title: "Secure Checkout — English Books" },
+      { title: "Secure Checkout — Yorlens English School" },
       { name: "description", content: "Complete your purchase and get instant access to your books." },
-      { property: "og:title", content: "Secure Checkout — English Books" },
+      { property: "og:title", content: "Secure Checkout — Yorlens English School" },
       { property: "og:description", content: "Fast, secure checkout with instant digital delivery." },
     ],
   }),

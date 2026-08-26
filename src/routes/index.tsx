@@ -13,13 +13,13 @@ import { books, bundles } from "@/data/books";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "English Books — Better English. Brighter Future." },
+      { title: "Yorlens English School — Better English. Brighter Future." },
       {
         name: "description",
         content:
           "Practical English-learning books for grammar, speaking, writing, vocabulary and reading. Instant digital download plus the Yorlingo learning app.",
       },
-      { property: "og:title", content: "English Books — Better English. Brighter Future." },
+      { property: "og:title", content: "Yorlens English School — Better English. Brighter Future." },
       {
         property: "og:description",
         content:

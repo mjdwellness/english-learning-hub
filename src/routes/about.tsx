@@ -4,16 +4,16 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us — English Books" },
+      { title: "About Us — Yorlens English School" },
       {
         name: "description",
         content:
           "We publish practical English-learning books and build Yorlingo, an app that turns daily practice into a habit.",
       },
-      { property: "og:title", content: "About Us — English Books" },
+      { property: "og:title", content: "About Us — Yorlens English School" },
       {
         property: "og:description",
-        content: "The team behind English Books and the Yorlingo learning app.",
+        content: "The team behind Yorlens English School and the Yorlingo learning app.",
       },
     ],
   }),
