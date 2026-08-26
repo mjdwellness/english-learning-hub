@@ -71,7 +71,7 @@ function YorlingoPage() {
               loading="lazy"
               width={1008}
               height={912}
-              className="w-[48%] max-w-[12rem] -ml-8"
+              className="w-[58%] max-w-xs -ml-8"
             />
           </div>
         </div>

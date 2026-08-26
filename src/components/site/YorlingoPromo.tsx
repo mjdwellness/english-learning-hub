@@ -82,7 +82,7 @@ export function YorlingoPromo() {
               loading="lazy"
               width={1008}
               height={912}
-              className="w-[45%] max-w-[11rem] -ml-8"
+              className="w-[68%] max-w-xs -ml-10"
             />
           </div>
         </div>
