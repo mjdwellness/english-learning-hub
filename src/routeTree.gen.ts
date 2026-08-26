@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as BundlesRouteImport } from './routes/bundles'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as YorlingoRouteImport } from './routes/yorlingo'
 import { Route as AccountIndexRouteImport } from './routes/account.index'
+import { Route as AccountAddressesRouteImport } from './routes/account.addresses'
 import { Route as AccountDownloadsRouteImport } from './routes/account.downloads'
 import { Route as AccountLibraryRouteImport } from './routes/account.library'
 import { Route as AccountOrdersRouteImport } from './routes/account.orders'
+import { Route as AccountPaymentMethodsRouteImport } from './routes/account.payment-methods'
+import { Route as AccountProfileRouteImport } from './routes/account.profile'
+import { Route as AccountSettingsRouteImport } from './routes/account.settings'
 import { Route as AccountWishlistRouteImport } from './routes/account.wishlist'
 import { Route as BooksIndexRouteImport } from './routes/books.index'
 import { Route as BooksSlugRouteImport } from './routes/books.$slug'
@@ -26,6 +34,11 @@ import { Route as BooksSlugRouteImport } from './routes/books.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountRoute = AccountRouteImport.update({
@@ -48,6 +61,21 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const YorlingoRoute = YorlingoRouteImport.update({
   id: '/yorlingo',
   path: '/yorlingo',
@@ -56,6 +84,11 @@ const YorlingoRoute = YorlingoRouteImport.update({
 const AccountIndexRoute = AccountIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountAddressesRoute = AccountAddressesRouteImport.update({
+  id: '/addresses',
+  path: '/addresses',
   getParentRoute: () => AccountRoute,
 } as any)
 const AccountDownloadsRoute = AccountDownloadsRouteImport.update({
@@ -71,6 +104,21 @@ const AccountLibraryRoute = AccountLibraryRouteImport.update({
 const AccountOrdersRoute = AccountOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountPaymentMethodsRoute = AccountPaymentMethodsRouteImport.update({
+  id: '/payment-methods',
+  path: '/payment-methods',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountProfileRoute = AccountProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AccountRoute,
+} as any)
+const AccountSettingsRoute = AccountSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AccountRoute,
 } as any)
 const AccountWishlistRoute = AccountWishlistRouteImport.update({
@@ -91,14 +139,22 @@ const BooksSlugRoute = BooksSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRouteWithChildren
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/resources': typeof ResourcesRoute
+  '/reviews': typeof ReviewsRoute
   '/yorlingo': typeof YorlingoRoute
+  '/account/addresses': typeof AccountAddressesRoute
   '/account/downloads': typeof AccountDownloadsRoute
   '/account/library': typeof AccountLibraryRoute
   '/account/orders': typeof AccountOrdersRoute
+  '/account/payment-methods': typeof AccountPaymentMethodsRoute
+  '/account/profile': typeof AccountProfileRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
   '/account/': typeof AccountIndexRoute
@@ -106,13 +162,21 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/resources': typeof ResourcesRoute
+  '/reviews': typeof ReviewsRoute
   '/yorlingo': typeof YorlingoRoute
+  '/account/addresses': typeof AccountAddressesRoute
   '/account/downloads': typeof AccountDownloadsRoute
   '/account/library': typeof AccountLibraryRoute
   '/account/orders': typeof AccountOrdersRoute
+  '/account/payment-methods': typeof AccountPaymentMethodsRoute
+  '/account/profile': typeof AccountProfileRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
   '/account': typeof AccountIndexRoute
@@ -121,14 +185,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRouteWithChildren
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/resources': typeof ResourcesRoute
+  '/reviews': typeof ReviewsRoute
   '/yorlingo': typeof YorlingoRoute
+  '/account/addresses': typeof AccountAddressesRoute
   '/account/downloads': typeof AccountDownloadsRoute
   '/account/library': typeof AccountLibraryRoute
   '/account/orders': typeof AccountOrdersRoute
+  '/account/payment-methods': typeof AccountPaymentMethodsRoute
+  '/account/profile': typeof AccountProfileRoute
+  '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
   '/account/': typeof AccountIndexRoute
@@ -138,14 +210,22 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/account'
     | '/bundles'
     | '/cart'
     | '/checkout'
+    | '/contact'
+    | '/resources'
+    | '/reviews'
     | '/yorlingo'
+    | '/account/addresses'
     | '/account/downloads'
     | '/account/library'
     | '/account/orders'
+    | '/account/payment-methods'
+    | '/account/profile'
+    | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
     | '/account/'
@@ -153,13 +233,21 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/bundles'
     | '/cart'
     | '/checkout'
+    | '/contact'
+    | '/resources'
+    | '/reviews'
     | '/yorlingo'
+    | '/account/addresses'
     | '/account/downloads'
     | '/account/library'
     | '/account/orders'
+    | '/account/payment-methods'
+    | '/account/profile'
+    | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
     | '/account'
@@ -167,14 +255,22 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/account'
     | '/bundles'
     | '/cart'
     | '/checkout'
+    | '/contact'
+    | '/resources'
+    | '/reviews'
     | '/yorlingo'
+    | '/account/addresses'
     | '/account/downloads'
     | '/account/library'
     | '/account/orders'
+    | '/account/payment-methods'
+    | '/account/profile'
+    | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
     | '/account/'
@@ -183,10 +279,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRouteWithChildren
   BundlesRoute: typeof BundlesRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
+  ContactRoute: typeof ContactRoute
+  ResourcesRoute: typeof ResourcesRoute
+  ReviewsRoute: typeof ReviewsRoute
   YorlingoRoute: typeof YorlingoRoute
   BooksSlugRoute: typeof BooksSlugRoute
   BooksIndexRoute: typeof BooksIndexRoute
@@ -199,6 +299,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account': {
@@ -229,6 +336,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/yorlingo': {
       id: '/yorlingo'
       path: '/yorlingo'
@@ -241,6 +369,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/account/'
       preLoaderRoute: typeof AccountIndexRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/addresses': {
+      id: '/account/addresses'
+      path: '/addresses'
+      fullPath: '/account/addresses'
+      preLoaderRoute: typeof AccountAddressesRouteImport
       parentRoute: typeof AccountRoute
     }
     '/account/downloads': {
@@ -262,6 +397,27 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/account/orders'
       preLoaderRoute: typeof AccountOrdersRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/payment-methods': {
+      id: '/account/payment-methods'
+      path: '/payment-methods'
+      fullPath: '/account/payment-methods'
+      preLoaderRoute: typeof AccountPaymentMethodsRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/profile': {
+      id: '/account/profile'
+      path: '/profile'
+      fullPath: '/account/profile'
+      preLoaderRoute: typeof AccountProfileRouteImport
+      parentRoute: typeof AccountRoute
+    }
+    '/account/settings': {
+      id: '/account/settings'
+      path: '/settings'
+      fullPath: '/account/settings'
+      preLoaderRoute: typeof AccountSettingsRouteImport
       parentRoute: typeof AccountRoute
     }
     '/account/wishlist': {
@@ -289,17 +445,25 @@ declare module '@tanstack/react-router' {
 }
 
 interface AccountRouteChildren {
+  AccountAddressesRoute: typeof AccountAddressesRoute
   AccountDownloadsRoute: typeof AccountDownloadsRoute
   AccountLibraryRoute: typeof AccountLibraryRoute
   AccountOrdersRoute: typeof AccountOrdersRoute
+  AccountPaymentMethodsRoute: typeof AccountPaymentMethodsRoute
+  AccountProfileRoute: typeof AccountProfileRoute
+  AccountSettingsRoute: typeof AccountSettingsRoute
   AccountWishlistRoute: typeof AccountWishlistRoute
   AccountIndexRoute: typeof AccountIndexRoute
 }
 
 const AccountRouteChildren: AccountRouteChildren = {
+  AccountAddressesRoute: AccountAddressesRoute,
   AccountDownloadsRoute: AccountDownloadsRoute,
   AccountLibraryRoute: AccountLibraryRoute,
   AccountOrdersRoute: AccountOrdersRoute,
+  AccountPaymentMethodsRoute: AccountPaymentMethodsRoute,
+  AccountProfileRoute: AccountProfileRoute,
+  AccountSettingsRoute: AccountSettingsRoute,
   AccountWishlistRoute: AccountWishlistRoute,
   AccountIndexRoute: AccountIndexRoute,
 }
@@ -309,10 +473,14 @@ const AccountRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AccountRoute: AccountRouteWithChildren,
   BundlesRoute: BundlesRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
+  ContactRoute: ContactRoute,
+  ResourcesRoute: ResourcesRoute,
+  ReviewsRoute: ReviewsRoute,
   YorlingoRoute: YorlingoRoute,
   BooksSlugRoute: BooksSlugRoute,
   BooksIndexRoute: BooksIndexRoute,
