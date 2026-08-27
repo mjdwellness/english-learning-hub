@@ -14,6 +14,9 @@ import {
   createPrintOrder,
   getLuluShippingOptions,
 } from "@/lib/lulu.functions";
+import { createStripeCheckout } from "@/lib/stripe.functions";
+
+const PENDING_PRINT_KEY = "pending-print-order";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -46,6 +49,7 @@ function CheckoutPage() {
   const getShippingOptions = useServerFn(getLuluShippingOptions);
   const getPrintQuote = useServerFn(calculatePrintCost);
   const placePrintOrder = useServerFn(createPrintOrder);
+  const startStripeCheckout = useServerFn(createStripeCheckout);
 
   const printItems = cart.filter((item) => item.format === "print");
   const digitalItems = cart.filter((item) => item.format === "digital");
@@ -158,28 +162,66 @@ function CheckoutPage() {
     }
   }
 
+  async function placeDemoOrder() {
+    if (hasPrint) {
+      const lineItems = lineItemsFromCart(printItems);
+      const printSubtotal = printItems.reduce((sum, item) => {
+        const book = getBookById(item.id);
+        return sum + (book?.print?.price ?? 0) * item.quantity;
+      }, 0);
+
+      const { record } = await placePrintOrder({
+        data: {
+          contact_email: form.email,
+          external_id: `eb-${Date.now().toString().slice(-8)}`,
+          line_items: lineItems,
+          shipping_address: {
+            email: form.email,
+            name: `${form.first} ${form.last}`.trim() || form.email,
+            street1: form.address,
+            city: form.city,
+            state_code: form.state || undefined,
+            country_code: form.country,
+            postcode: form.zip,
+            phone_number: form.phone,
+          },
+          shipping_level: shippingLevel,
+          subtotal: printSubtotal,
+        },
+      });
+      addPrintOrder(record as PrintOrderRecord);
+    }
+
+    if (digitalItems.length > 0) {
+      const order = completeCheckout();
+      toast.success(`Payment complete — order ${order.id}`);
+    } else {
+      toast.success("Print order placed successfully.");
+    }
+
+    navigate({ to: "/account/orders" });
+  }
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setSubmitting(true);
 
     try {
-      if (hasPrint) {
-        if (!shippingLevel) {
-          toast.error("Select a shipping option for print books.");
-          setSubmitting(false);
-          return;
-        }
-        const lineItems = lineItemsFromCart(printItems);
-        const printSubtotal = printItems.reduce((sum, item) => {
-          const book = getBookById(item.id);
-          return sum + (book?.print?.price ?? 0) * item.quantity;
-        }, 0);
+      if (hasPrint && !shippingLevel) {
+        toast.error("Select a shipping option for print books.");
+        setSubmitting(false);
+        return;
+      }
 
-        const { record } = await placePrintOrder({
-          data: {
+      // Save print fulfilment details so the confirmation page can create the
+      // Lulu print job only after Stripe confirms payment.
+      if (hasPrint) {
+        sessionStorage.setItem(
+          PENDING_PRINT_KEY,
+          JSON.stringify({
             contact_email: form.email,
             external_id: `eb-${Date.now().toString().slice(-8)}`,
-            line_items: lineItems,
+            line_items: lineItemsFromCart(printItems),
             shipping_address: {
               email: form.email,
               name: `${form.first} ${form.last}`.trim() || form.email,
@@ -191,20 +233,35 @@ function CheckoutPage() {
               phone_number: form.phone,
             },
             shipping_level: shippingLevel,
-            subtotal: printSubtotal,
+            subtotal: printItems.reduce((sum, item) => {
+              const book = getBookById(item.id);
+              return sum + (book?.print?.price ?? 0) * item.quantity;
+            }, 0),
+          }),
+        );
+      }
+
+      try {
+        const { url } = await startStripeCheckout({
+          data: {
+            items: cart,
+            promoCode: promoCode ?? undefined,
+            shippingAmountCents: printQuote
+              ? Math.round(Number.parseFloat(printQuote.shipping_cost.cost ?? "0") * 100)
+              : 0,
+            origin: window.location.origin,
           },
         });
-        addPrintOrder(record as PrintOrderRecord);
+        window.location.href = url;
+        return;
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : "";
+        if (!message.includes("STRIPE_NOT_CONFIGURED")) throw e;
+        // Stripe secret not added yet — fall back to demo checkout.
+        toast.info("Stripe not configured yet — running demo checkout.");
+        sessionStorage.removeItem(PENDING_PRINT_KEY);
+        await placeDemoOrder();
       }
-
-      if (digitalItems.length > 0) {
-        const order = completeCheckout();
-        toast.success(`Payment complete — order ${order.id}`);
-      } else {
-        toast.success("Print order placed successfully.");
-      }
-
-      navigate({ to: "/account/orders" });
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Checkout failed";
       toast.error(message);
@@ -396,32 +453,14 @@ function CheckoutPage() {
 
           <fieldset className="rounded-3xl border border-border bg-card p-6 shadow-card">
             <legend className="px-2 font-display text-lg font-extrabold text-navy">Payment</legend>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <Label htmlFor="card">Card number</Label>
-                <div className="relative mt-1.5">
-                  <CreditCard className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="card"
-                    required
-                    placeholder="4242 4242 4242 4242"
-                    className="h-11 pl-9"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="exp">Expiry</Label>
-                <Input id="exp" required placeholder="MM / YY" className="mt-1.5 h-11" />
-              </div>
-              <div>
-                <Label htmlFor="cvc">CVC</Label>
-                <Input id="cvc" required placeholder="123" className="mt-1.5 h-11" />
-              </div>
+            <div className="mt-4 flex items-start gap-3 rounded-xl bg-surface p-4">
+              <CreditCard className="mt-0.5 size-5 shrink-0 text-brand-green" />
+              <p className="text-sm text-muted-foreground">
+                You'll be redirected to <span className="font-semibold text-navy">Stripe</span> to
+                pay securely by card, Apple Pay, or Google Pay. Sales tax is calculated
+                automatically at checkout. No card details ever touch our servers.
+              </p>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Payments are in demo mode — this form places the order so you can see both digital
-              delivery and Lulu print-job creation.
-            </p>
           </fieldset>
         </div>
 
