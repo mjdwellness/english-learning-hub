@@ -1,17 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { BookOpen, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import logoAsset from "@/assets/yorlens-logo.webp.asset.json";
 
 export function Footer() {
   return (
     <footer className="mt-16 border-t border-border bg-surface">
       <div className="container-page flex flex-col items-center gap-6 py-10 text-center">
-        <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid size-10 place-items-center rounded-xl bg-navy text-navy-foreground">
-            <BookOpen className="size-5" />
-          </span>
-          <span className="font-display text-lg leading-tight font-extrabold text-navy">
-            Yorlens English School
-          </span>
+        <Link to="/">
+          <img
+            src={logoAsset.url}
+            alt="Yorlens English School"
+            className="h-12 w-auto object-contain"
+          />
         </Link>
         <p className="max-w-md text-sm text-muted-foreground">
           Practical English-learning books and the Yorlingo app.

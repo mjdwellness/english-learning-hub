@@ -1,18 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/yorlens-logo.webp.asset.json";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link to="/" className={cn("flex min-w-0 items-center gap-2.5", className)}>
-      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-sky text-navy">
-        <BookOpen className="size-5" />
-      </span>
-      <span className="min-w-0 font-display text-[1.05rem] leading-[1.05] font-extrabold text-navy">
-        Yorlens
-        <br />
-        English School
-      </span>
+    <Link to="/" className={cn("flex items-center", className)}>
+      <img
+        src={logoAsset.url}
+        alt="Yorlens English School"
+        className="h-10 w-auto object-contain"
+      />
     </Link>
   );
 }
