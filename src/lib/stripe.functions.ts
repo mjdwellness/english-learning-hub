@@ -40,9 +40,8 @@ export const createStripeCheckout = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const key = process.env["STRIPE_SECRET_KEY"];
     if (!key) {
-      throw new Error(
-        "STRIPE_NOT_CONFIGURED: add the STRIPE_SECRET_KEY secret to enable live payments.",
-      );
+      // Not an error: the client falls back to the demo checkout flow.
+      return { configured: false as const, url: null, sessionId: null };
     }
     const { default: Stripe } = await import("stripe");
     const stripe = new Stripe(key);
@@ -113,7 +112,7 @@ export const createStripeCheckout = createServerFn({ method: "POST" })
       },
     });
 
-    return { url: session.url!, sessionId: session.id };
+    return { configured: true as const, url: session.url!, sessionId: session.id };
   });
 
 export const getStripeSessionStatus = createServerFn({ method: "GET" })
