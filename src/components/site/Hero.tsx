@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBanner from "@/assets/hero-banner-5-liv.jpg.asset.json";
 
@@ -40,29 +39,6 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex -space-x-3">
-              {["A", "M", "K", "S"].map((initial, i) => (
-                <span
-                  key={initial}
-                  className="grid size-10 place-items-center rounded-full border-2 border-background bg-navy text-xs font-bold text-navy-foreground"
-                  style={{ opacity: 1 - i * 0.12 }}
-                >
-                  {initial}
-                </span>
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="flex items-center gap-0.5" aria-hidden="true">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className="size-4 fill-star text-star" />
-                ))}
-              </div>
-              <p className="mt-1 text-sm font-semibold text-navy">
-                Trusted by English learners worldwide
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
