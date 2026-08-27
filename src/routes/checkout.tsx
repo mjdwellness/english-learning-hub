@@ -241,8 +241,8 @@ function CheckoutPage() {
         );
       }
 
-      try {
-        const { url } = await startStripeCheckout({
+      {
+        const { configured, url } = await startStripeCheckout({
           data: {
             items: cart,
             promoCode: promoCode ?? undefined,
@@ -252,11 +252,10 @@ function CheckoutPage() {
             origin: window.location.origin,
           },
         });
-        window.location.href = url;
-        return;
-      } catch (e: unknown) {
-        const message = e instanceof Error ? e.message : "";
-        if (!message.includes("STRIPE_NOT_CONFIGURED")) throw e;
+        if (configured && url) {
+          window.location.href = url;
+          return;
+        }
         // Stripe secret not added yet — fall back to demo checkout.
         toast.info("Stripe not configured yet — running demo checkout.");
         sessionStorage.removeItem(PENDING_PRINT_KEY);
