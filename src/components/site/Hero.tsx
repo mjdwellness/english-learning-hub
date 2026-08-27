@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBanner from "@/assets/hero-banner-5-liv.jpg.asset.json";
 
