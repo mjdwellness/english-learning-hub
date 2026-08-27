@@ -8,7 +8,7 @@ import { getStripeSessionStatus } from "@/lib/stripe.functions";
 
 export const Route = createFileRoute("/checkout/confirmation")({
   validateSearch: (search: Record<string, unknown>) => ({
-    session_id: typeof search.session_id === "string" ? search.session_id : "",
+    session_id: typeof search["session_id"] === "string" ? (search["session_id"] as string) : "",
   }),
   head: () => ({
     meta: [{ title: "Order Confirmation — Yorlens English School" }],

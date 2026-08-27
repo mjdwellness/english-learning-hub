@@ -18,6 +18,7 @@ const createSessionSchema = z.object({
   items: z.array(cartItemSchema).min(1),
   promoCode: z.string().optional(),
   shippingAmountCents: z.number().int().min(0).optional(),
+  origin: z.string().url(),
 });
 
 function priceOf(item: z.infer<typeof cartItemSchema>): { name: string; unitCents: number } | null {

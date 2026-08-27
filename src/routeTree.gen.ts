@@ -30,6 +30,7 @@ import { Route as AccountSettingsRouteImport } from './routes/account.settings'
 import { Route as AccountWishlistRouteImport } from './routes/account.wishlist'
 import { Route as BooksIndexRouteImport } from './routes/books.index'
 import { Route as BooksSlugRouteImport } from './routes/books.$slug'
+import { Route as CheckoutConfirmationRouteImport } from './routes/checkout.confirmation'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -136,6 +137,11 @@ const BooksSlugRoute = BooksSlugRouteImport.update({
   path: '/books/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutConfirmationRoute = CheckoutConfirmationRouteImport.update({
+  id: '/confirmation',
+  path: '/confirmation',
+  getParentRoute: () => CheckoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -143,7 +149,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRouteWithChildren
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/contact': typeof ContactRoute
   '/resources': typeof ResourcesRoute
   '/reviews': typeof ReviewsRoute
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
+  '/checkout/confirmation': typeof CheckoutConfirmationRoute
   '/account/': typeof AccountIndexRoute
   '/books/': typeof BooksIndexRoute
 }
@@ -165,7 +172,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/contact': typeof ContactRoute
   '/resources': typeof ResourcesRoute
   '/reviews': typeof ReviewsRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
+  '/checkout/confirmation': typeof CheckoutConfirmationRoute
   '/account': typeof AccountIndexRoute
   '/books': typeof BooksIndexRoute
 }
@@ -189,7 +197,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRouteWithChildren
   '/bundles': typeof BundlesRoute
   '/cart': typeof CartRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/contact': typeof ContactRoute
   '/resources': typeof ResourcesRoute
   '/reviews': typeof ReviewsRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
   '/books/$slug': typeof BooksSlugRoute
+  '/checkout/confirmation': typeof CheckoutConfirmationRoute
   '/account/': typeof AccountIndexRoute
   '/books/': typeof BooksIndexRoute
 }
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
+    | '/checkout/confirmation'
     | '/account/'
     | '/books/'
   fileRoutesByTo: FileRoutesByTo
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
+    | '/checkout/confirmation'
     | '/account'
     | '/books'
   id:
@@ -273,6 +284,7 @@ export interface FileRouteTypes {
     | '/account/settings'
     | '/account/wishlist'
     | '/books/$slug'
+    | '/checkout/confirmation'
     | '/account/'
     | '/books/'
   fileRoutesById: FileRoutesById
@@ -283,7 +295,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRouteWithChildren
   BundlesRoute: typeof BundlesRoute
   CartRoute: typeof CartRoute
-  CheckoutRoute: typeof CheckoutRoute
+  CheckoutRoute: typeof CheckoutRouteWithChildren
   ContactRoute: typeof ContactRoute
   ResourcesRoute: typeof ResourcesRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -441,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout/confirmation': {
+      id: '/checkout/confirmation'
+      path: '/confirmation'
+      fullPath: '/checkout/confirmation'
+      preLoaderRoute: typeof CheckoutConfirmationRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
   }
 }
 
@@ -471,13 +490,25 @@ const AccountRouteChildren: AccountRouteChildren = {
 const AccountRouteWithChildren =
   AccountRoute._addFileChildren(AccountRouteChildren)
 
+interface CheckoutRouteChildren {
+  CheckoutConfirmationRoute: typeof CheckoutConfirmationRoute
+}
+
+const CheckoutRouteChildren: CheckoutRouteChildren = {
+  CheckoutConfirmationRoute: CheckoutConfirmationRoute,
+}
+
+const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
+  CheckoutRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccountRoute: AccountRouteWithChildren,
   BundlesRoute: BundlesRoute,
   CartRoute: CartRoute,
-  CheckoutRoute: CheckoutRoute,
+  CheckoutRoute: CheckoutRouteWithChildren,
   ContactRoute: ContactRoute,
   ResourcesRoute: ResourcesRoute,
   ReviewsRoute: ReviewsRoute,
