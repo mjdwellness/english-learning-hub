@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Benefits } from "@/components/site/Benefits";
 import { BookGrid } from "@/components/site/BookGrid";
 import { BundleCard } from "@/components/site/BundleCard";
 import { Hero } from "@/components/site/Hero";
@@ -36,7 +35,6 @@ function Home() {
   return (
     <>
       <Hero />
-      <Benefits />
 
       <section className="container-page section-y">
         <SectionHeading
