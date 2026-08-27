@@ -34,9 +34,6 @@ export function Hero() {
             <Button asChild variant="navy" size="xl">
               <Link to="/books">Shop Books</Link>
             </Button>
-            <Button asChild variant="navySoft" size="xl">
-              <Link to="/bundles">Explore Bundles</Link>
-            </Button>
           </div>
 
         </div>
