@@ -22,8 +22,9 @@ export const Route = createFileRoute("/checkout/confirmation")({
 
 function ConfirmationPage() {
   const { session_id } = Route.useSearch();
-  const { cart, completeCheckout, clearCart } = useStore();
+  const { cart, completeCheckout, clearCart, addPrintOrder } = useStore();
   const getStatus = useServerFn(getStripeSessionStatus);
+  const placePrintOrder = useServerFn(createPrintOrder);
   const [state, setState] = useState<"loading" | "paid" | "failed">("loading");
   const [email, setEmail] = useState<string | null>(null);
   const [amount, setAmount] = useState<number>(0);
