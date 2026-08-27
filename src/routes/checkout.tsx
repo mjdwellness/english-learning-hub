@@ -162,28 +162,66 @@ function CheckoutPage() {
     }
   }
 
+  async function placeDemoOrder() {
+    if (hasPrint) {
+      const lineItems = lineItemsFromCart(printItems);
+      const printSubtotal = printItems.reduce((sum, item) => {
+        const book = getBookById(item.id);
+        return sum + (book?.print?.price ?? 0) * item.quantity;
+      }, 0);
+
+      const { record } = await placePrintOrder({
+        data: {
+          contact_email: form.email,
+          external_id: `eb-${Date.now().toString().slice(-8)}`,
+          line_items: lineItems,
+          shipping_address: {
+            email: form.email,
+            name: `${form.first} ${form.last}`.trim() || form.email,
+            street1: form.address,
+            city: form.city,
+            state_code: form.state || undefined,
+            country_code: form.country,
+            postcode: form.zip,
+            phone_number: form.phone,
+          },
+          shipping_level: shippingLevel,
+          subtotal: printSubtotal,
+        },
+      });
+      addPrintOrder(record as PrintOrderRecord);
+    }
+
+    if (digitalItems.length > 0) {
+      const order = completeCheckout();
+      toast.success(`Payment complete — order ${order.id}`);
+    } else {
+      toast.success("Print order placed successfully.");
+    }
+
+    navigate({ to: "/account/orders" });
+  }
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setSubmitting(true);
 
     try {
-      if (hasPrint) {
-        if (!shippingLevel) {
-          toast.error("Select a shipping option for print books.");
-          setSubmitting(false);
-          return;
-        }
-        const lineItems = lineItemsFromCart(printItems);
-        const printSubtotal = printItems.reduce((sum, item) => {
-          const book = getBookById(item.id);
-          return sum + (book?.print?.price ?? 0) * item.quantity;
-        }, 0);
+      if (hasPrint && !shippingLevel) {
+        toast.error("Select a shipping option for print books.");
+        setSubmitting(false);
+        return;
+      }
 
-        const { record } = await placePrintOrder({
-          data: {
+      // Save print fulfilment details so the confirmation page can create the
+      // Lulu print job only after Stripe confirms payment.
+      if (hasPrint) {
+        sessionStorage.setItem(
+          PENDING_PRINT_KEY,
+          JSON.stringify({
             contact_email: form.email,
             external_id: `eb-${Date.now().toString().slice(-8)}`,
-            line_items: lineItems,
+            line_items: lineItemsFromCart(printItems),
             shipping_address: {
               email: form.email,
               name: `${form.first} ${form.last}`.trim() || form.email,
@@ -195,20 +233,35 @@ function CheckoutPage() {
               phone_number: form.phone,
             },
             shipping_level: shippingLevel,
-            subtotal: printSubtotal,
+            subtotal: printItems.reduce((sum, item) => {
+              const book = getBookById(item.id);
+              return sum + (book?.print?.price ?? 0) * item.quantity;
+            }, 0),
+          }),
+        );
+      }
+
+      try {
+        const { url } = await startStripeCheckout({
+          data: {
+            items: cart,
+            promoCode: promoCode ?? undefined,
+            shippingAmountCents: printQuote
+              ? Math.round(Number.parseFloat(printQuote.shipping_cost.cost ?? "0") * 100)
+              : 0,
+            origin: window.location.origin,
           },
         });
-        addPrintOrder(record as PrintOrderRecord);
+        window.location.href = url;
+        return;
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : "";
+        if (!message.includes("STRIPE_NOT_CONFIGURED")) throw e;
+        // Stripe secret not added yet — fall back to demo checkout.
+        toast.info("Stripe not configured yet — running demo checkout.");
+        sessionStorage.removeItem(PENDING_PRINT_KEY);
+        await placeDemoOrder();
       }
-
-      if (digitalItems.length > 0) {
-        const order = completeCheckout();
-        toast.success(`Payment complete — order ${order.id}`);
-      } else {
-        toast.success("Print order placed successfully.");
-      }
-
-      navigate({ to: "/account/orders" });
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Checkout failed";
       toast.error(message);
