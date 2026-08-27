@@ -36,6 +36,20 @@ function ConfirmationPage() {
         if (result.paid) {
           const hasDigital = cart.some((i) => i.format === "digital");
           const hasPrint = cart.some((i) => i.format === "print");
+
+          // Create the Lulu print job now that payment is confirmed.
+          const pendingRaw = sessionStorage.getItem(PENDING_PRINT_KEY);
+          if (hasPrint && pendingRaw) {
+            sessionStorage.removeItem(PENDING_PRINT_KEY);
+            try {
+              const pending = JSON.parse(pendingRaw);
+              const { record } = await placePrintOrder({ data: pending });
+              addPrintOrder(record as PrintOrderRecord);
+            } catch {
+              toast.error("Payment succeeded, but the print job failed — contact hello@yorlens.com");
+            }
+          }
+
           if (hasDigital) completeCheckout();
           else if (hasPrint) clearCart();
           setState("paid");

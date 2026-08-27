@@ -453,32 +453,14 @@ function CheckoutPage() {
 
           <fieldset className="rounded-3xl border border-border bg-card p-6 shadow-card">
             <legend className="px-2 font-display text-lg font-extrabold text-navy">Payment</legend>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <Label htmlFor="card">Card number</Label>
-                <div className="relative mt-1.5">
-                  <CreditCard className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="card"
-                    required
-                    placeholder="4242 4242 4242 4242"
-                    className="h-11 pl-9"
-                  />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="exp">Expiry</Label>
-                <Input id="exp" required placeholder="MM / YY" className="mt-1.5 h-11" />
-              </div>
-              <div>
-                <Label htmlFor="cvc">CVC</Label>
-                <Input id="cvc" required placeholder="123" className="mt-1.5 h-11" />
-              </div>
+            <div className="mt-4 flex items-start gap-3 rounded-xl bg-surface p-4">
+              <CreditCard className="mt-0.5 size-5 shrink-0 text-brand-green" />
+              <p className="text-sm text-muted-foreground">
+                You'll be redirected to <span className="font-semibold text-navy">Stripe</span> to
+                pay securely by card, Apple Pay, or Google Pay. Sales tax is calculated
+                automatically at checkout. No card details ever touch our servers.
+              </p>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Payments are in demo mode — this form places the order so you can see both digital
-              delivery and Lulu print-job creation.
-            </p>
           </fieldset>
         </div>
 
