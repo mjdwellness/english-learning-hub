@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBooks from "@/assets/hero-books.jpg";
+import heroBanner from "@/assets/hero-banner-5-liv.jpg.asset.json";
 
 export function Hero() {
   return (
@@ -10,18 +10,28 @@ export function Hero() {
         aria-hidden="true"
         className="absolute -top-24 -right-24 size-[28rem] rounded-full bg-background/50 blur-3xl"
       />
-      <div className="container-page relative grid items-center gap-10 py-12 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:py-20">
-        <div>
-          <h1 className="font-display text-4xl leading-[1.05] font-extrabold text-navy sm:text-5xl lg:text-6xl">
+      <div className="container-page relative py-10 lg:py-14">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-border shadow-card">
+          <img
+            src={heroBanner.url}
+            alt="Men 5 Liv Anglè-kreyòl ak tout pwononsiyasyon — Yorlens English School book collection"
+            width={1080}
+            height={607}
+            className="w-full object-cover"
+            fetchPriority="high"
+          />
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center text-center">
+          <h1 className="font-display text-3xl leading-[1.1] font-extrabold text-navy sm:text-4xl lg:text-5xl">
             Better English.
-            <br />
-            <span className="text-brand-green">Brighter</span> Future.
+            <span className="text-brand-green"> Brighter</span> Future.
           </h1>
-          <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
+          <p className="mt-4 max-w-md text-base text-muted-foreground sm:text-lg">
             Practical books to help you learn English, improve your skills, and achieve your goals.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Button asChild variant="navy" size="xl">
               <Link to="/books">Shop Books</Link>
             </Button>
@@ -42,7 +52,7 @@ export function Hero() {
                 </span>
               ))}
             </div>
-            <div>
+            <div className="text-left">
               <div className="flex items-center gap-0.5" aria-hidden="true">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} className="size-4 fill-star text-star" />
@@ -53,16 +63,6 @@ export function Hero() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="relative">
-          <img
-            src={heroBooks}
-            alt="Speak English Confidently, English Grammar Made Easy and English Writing Step by Step books on a display stand"
-            width={1200}
-            height={912}
-            className="w-full drop-shadow-2xl"
-          />
         </div>
       </div>
     </section>
