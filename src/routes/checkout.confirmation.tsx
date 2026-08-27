@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, LoaderCircle, XCircle } from "lucide-react";
+import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
-import { formatPrice, useStore } from "@/lib/store";
+import { formatPrice, useStore, type PrintOrderRecord } from "@/lib/store";
 import { getStripeSessionStatus } from "@/lib/stripe.functions";
+import { createPrintOrder } from "@/lib/lulu.functions";
+
+const PENDING_PRINT_KEY = "pending-print-order";
 
 export const Route = createFileRoute("/checkout/confirmation")({
   validateSearch: (search: Record<string, unknown>) => ({
