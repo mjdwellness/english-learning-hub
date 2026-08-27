@@ -16,7 +16,7 @@ export function Hero() {
             src={heroBanner.url}
             alt="Men 5 Liv Anglè-kreyòl ak tout pwononsiyasyon — Yorlens English School book collection"
             width={1080}
-            height={608}
+            height={607}
             className="w-full object-cover"
             fetchPriority="high"
           />
