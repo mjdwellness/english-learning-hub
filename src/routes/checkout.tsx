@@ -14,6 +14,9 @@ import {
   createPrintOrder,
   getLuluShippingOptions,
 } from "@/lib/lulu.functions";
+import { createStripeCheckout } from "@/lib/stripe.functions";
+
+const PENDING_PRINT_KEY = "pending-print-order";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -46,6 +49,7 @@ function CheckoutPage() {
   const getShippingOptions = useServerFn(getLuluShippingOptions);
   const getPrintQuote = useServerFn(calculatePrintCost);
   const placePrintOrder = useServerFn(createPrintOrder);
+  const startStripeCheckout = useServerFn(createStripeCheckout);
 
   const printItems = cart.filter((item) => item.format === "print");
   const digitalItems = cart.filter((item) => item.format === "digital");
